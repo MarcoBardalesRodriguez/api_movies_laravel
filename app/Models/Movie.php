@@ -18,7 +18,7 @@ class Movie extends Model
      *
      * @var string
      */
-    protected $table = 'models';
+    protected $table = 'movies';
 
     /**
      * The primary key associated with the table.
@@ -66,7 +66,7 @@ class Movie extends Model
         'id' => 'int',
         'date_published' => 'date',
         'minutes_of_duration' => 'int',
-        'worldwide_gross_income' => 'bigint',
+        'worldwide_gross_income' => 'integer',
     ];
 
     /**
