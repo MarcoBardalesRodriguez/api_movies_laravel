@@ -45,7 +45,6 @@ class Director extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'id_string',
         'name',
         'height',
         'date_of_birth',

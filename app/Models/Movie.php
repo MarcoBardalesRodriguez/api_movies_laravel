@@ -47,7 +47,6 @@ class Movie extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'id_string',
         'title',
         'year',
         'date_published',
