@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Movie;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Rating extends Model
 {
@@ -58,7 +58,7 @@ class Rating extends Model
      */
     protected $casts = [
         'id' => 'int',
-        'avg_rating' => 'decimal:3',
+        'avg_rating' => 'decimal:1',
         'total_votes' => 'int',
         'median_rating' => 'int',
         'movie_id' => 'int',
@@ -67,8 +67,8 @@ class Rating extends Model
     /**
      * Get the movie associated with the rating.
      */
-    public function movie(): BelongsTo
+    public function movie(): HasOne
     {
-        return $this->belongsTo(Movie::class, 'movie_id', 'id');
+        return $this->hasOne(Movie::class, 'id', 'movie_id');
     }
 }

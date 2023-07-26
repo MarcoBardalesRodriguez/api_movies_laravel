@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Genre;
 use App\Models\Director;
 use App\Models\Actor;
+use App\Models\Rating;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Movie extends Model
 {
@@ -92,6 +94,14 @@ class Movie extends Model
     {
         return $this->belongsToMany(Actor::class, 'movie_actor', 'movie_id', 'actor_id')
                     ->withPivot('rol');
+    }
+
+    /**
+     * Get the ratings for the movie.
+     */
+    public function rating(): HasOne
+    {
+        return $this->hasOne(Rating::class, 'movie_id', 'id');
     }
 
 }
