@@ -17,7 +17,7 @@ use Laravel\Socialite\Facades\Socialite;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.welcome');
 })->name('/');
  
 Route::get('/auth/google', function () {
@@ -37,8 +37,7 @@ Route::get('/auth/google/callback', function () {
  
     Auth::login($user);
  
-    return redirect('/');
-
+    return redirect('home');
 });
 
 Route::get('/auth/google/logout', function () {
@@ -46,3 +45,7 @@ Route::get('/auth/google/logout', function () {
  
     return redirect('/');
 })->name('google.logout');
+
+Route::get('/home', function () {
+    return view('pages.index');
+})->middleware(['auth'])->name('home');
