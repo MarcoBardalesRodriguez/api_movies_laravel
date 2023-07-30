@@ -11,7 +11,7 @@ class ApiAuthenticationException extends Exception implements Responsable
     public function toResponse($request)
     {
         return new JsonResponse([
-            'message' => 'You are not authenticated',
+            'message' => 'Bearer Token not provided or invalid.',
             'status' => 'ERROR'
         ], 401);
     }
