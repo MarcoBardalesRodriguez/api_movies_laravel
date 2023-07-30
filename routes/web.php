@@ -4,6 +4,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Http\Request;
+use App\Http\Controllers\TokenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +18,17 @@ use Laravel\Socialite\Facades\Socialite;
 |
 */
 
+// View Routes
 Route::get('/', function () {
     return view('pages.welcome');
 })->name('/');
  
+Route::get('/home', function () {
+    return view('pages.index');
+})->middleware(['auth'])->name('home');
+
+
+// Auth Routes
 Route::get('/auth/google', function () {
     return Socialite::driver('google')->redirect();
 })->name('google.login');
@@ -46,6 +55,9 @@ Route::get('/auth/google/logout', function () {
     return redirect('/');
 })->name('google.logout');
 
-Route::get('/home', function () {
-    return view('pages.index');
-})->middleware(['auth'])->name('home');
+
+Route::resource('tokens', TokenController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
+    ->middleware(['auth']);
+
+
