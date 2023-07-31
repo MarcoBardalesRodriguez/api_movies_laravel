@@ -15,7 +15,7 @@
                     <a class="nav-link" href="{{ route('tokens.index') }}">Tokens</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Docs</a>
+                    <a class="nav-link" href="/api/documentation">Docs</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('google.logout') }}">Log out</a>

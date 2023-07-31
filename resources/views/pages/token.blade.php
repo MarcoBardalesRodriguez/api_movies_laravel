@@ -5,5 +5,5 @@
 @section('content')
     <h2>Token</h2>
     <p>{{ $token }}</p>
-    <a href="{{route('tokens.index')}}">volver</a>
+    <a href="{{route('tokens.index')}}">back</a>
 @endsection
