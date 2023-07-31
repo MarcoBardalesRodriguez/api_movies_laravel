@@ -26,15 +26,6 @@ Route::get("/", function () {
 });
 
 Route::group(["middleware" => "auth:sanctum"], function () {
-    Route::get("/user", function (Request $request) {
-        return $request->user();
-    });
-    Route::get("/test", function () {
-        return response()->json([
-            "message" => "You are authenticated",
-            "status" => "OK",
-        ]);
-    });
 
     // Rutas para los modelos
     Route::apiResource("movies", MovieController::class);
