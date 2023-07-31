@@ -6,10 +6,27 @@ use App\Models\Actor;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Tag(
+ *    name="Actors",
+ *    description="API Endpoints of Actors and their relationships"
+ * )
+ */
 class ActorController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/actors",
+     *     operationId="getActors",
+     *     tags={"Actors"},
+     *     summary="Get all actors",
+     *     description="Returns a list of actors.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="A list with actors"
+     *     )
+     * )
      */
     public function index(): JsonResponse
     {
@@ -28,7 +45,29 @@ class ActorController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/actors/{actor_id}",
+     *     operationId="getActorById",
+     *     tags={"Actors"},
+     *     summary="Get a specific actor",
+     *     description="Returns a specific actor by ID.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="actor_id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the actor",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="The actor details"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Actor not found"
+     *     )
+     * )
      */
     public function show(int $actor_id): JsonResponse
     {
@@ -62,8 +101,29 @@ class ActorController extends Controller
     }
 
     /**
-     * Display the movies related to the specified resource.
-     * 
+     * @OA\Get(
+     *     path="/api/actors/{actor_id}/movies",
+     *     operationId="getActorMovies",
+     *     tags={"Actors"},
+     *     summary="Get movies associated with a specific actor",
+     *     description="Returns a list of movies associated with a specific actor.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="actor_id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the actor",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="A list with movies"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Actor not found"
+     *     )
+     * )
      */
     public function movies(int $actor_id): JsonResponse
     {

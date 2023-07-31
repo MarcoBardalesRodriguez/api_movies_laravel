@@ -1,0 +1,533 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Movies API",
+        "description": "Movies API",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Movies API"
+        }
+    ],
+    "paths": {
+        "/api/actors": {
+            "get": {
+                "tags": [
+                    "Actors"
+                ],
+                "summary": "Get all actors",
+                "description": "Returns a list of actors.",
+                "operationId": "getActors",
+                "responses": {
+                    "200": {
+                        "description": "A list with actors"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/actors/{actor_id}": {
+            "get": {
+                "tags": [
+                    "Actors"
+                ],
+                "summary": "Get a specific actor",
+                "description": "Returns a specific actor by ID.",
+                "operationId": "getActorById",
+                "parameters": [
+                    {
+                        "name": "actor_id",
+                        "in": "path",
+                        "description": "ID of the actor",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The actor details"
+                    },
+                    "404": {
+                        "description": "Actor not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/actors/{actor_id}/movies": {
+            "get": {
+                "tags": [
+                    "Actors"
+                ],
+                "summary": "Get movies associated with a specific actor",
+                "description": "Returns a list of movies associated with a specific actor.",
+                "operationId": "getActorMovies",
+                "parameters": [
+                    {
+                        "name": "actor_id",
+                        "in": "path",
+                        "description": "ID of the actor",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list with movies"
+                    },
+                    "404": {
+                        "description": "Actor not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/directors": {
+            "get": {
+                "tags": [
+                    "Directors"
+                ],
+                "summary": "Get all directors",
+                "description": "Returns a list of directors.",
+                "operationId": "getDirectors",
+                "responses": {
+                    "200": {
+                        "description": "A list with directors"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/directors/{director_id}": {
+            "get": {
+                "tags": [
+                    "Directors"
+                ],
+                "summary": "Get a specific director",
+                "description": "Returns a specific director by ID.",
+                "operationId": "getDirectorById",
+                "parameters": [
+                    {
+                        "name": "director_id",
+                        "in": "path",
+                        "description": "ID of the director",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The director details"
+                    },
+                    "404": {
+                        "description": "Director not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/directors/{director_id}/movies": {
+            "get": {
+                "tags": [
+                    "Directors"
+                ],
+                "summary": "Get movies associated with a specific director",
+                "description": "Returns a list of movies associated with a specific director.",
+                "operationId": "getDirectorMovies",
+                "parameters": [
+                    {
+                        "name": "director_id",
+                        "in": "path",
+                        "description": "ID of the director",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list with movies"
+                    },
+                    "404": {
+                        "description": "Director not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/genres": {
+            "get": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Get all genres",
+                "description": "Returns a list of genres.",
+                "operationId": "getGenres",
+                "responses": {
+                    "200": {
+                        "description": "A list with genres"
+                    },
+                    "401": {
+                        "description": "Unauthorized. The request must include a valid Bearer token in the Authorization header."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/genres/{genre_id}": {
+            "get": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Get a specific genre",
+                "description": "Returns a specific genre by ID.",
+                "operationId": "getGenreById",
+                "parameters": [
+                    {
+                        "name": "genre_id",
+                        "in": "path",
+                        "description": "ID of the genre",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The genre details"
+                    },
+                    "401": {
+                        "description": "Unauthorized. The request must include a valid Bearer token in the Authorization header."
+                    },
+                    "404": {
+                        "description": "Genre not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/genres/{genre_id}/movies": {
+            "get": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Get movies associated with a specific genre",
+                "description": "Returns a list of movies associated with a specific genre.",
+                "operationId": "getGenreMovies",
+                "parameters": [
+                    {
+                        "name": "genre_id",
+                        "in": "path",
+                        "description": "ID of the genre",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list with movies"
+                    },
+                    "401": {
+                        "description": "Unauthorized. The request must include a valid Bearer token in the Authorization header."
+                    },
+                    "404": {
+                        "description": "Genre not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/movies": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get all movies",
+                "description": "Returns a list of movies. This endpoint requires a valid Bearer token in the Authorization header.",
+                "operationId": "getMovies",
+                "responses": {
+                    "200": {
+                        "description": "A list with movies"
+                    },
+                    "401": {
+                        "description": "Unauthorized. The request must include a valid Bearer token in the Authorization header."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/movies/{movie_id}": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get a specific movie",
+                "description": "Returns a specific movie by ID.",
+                "operationId": "getMovieById",
+                "parameters": [
+                    {
+                        "name": "movie_id",
+                        "in": "path",
+                        "description": "ID of the movie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The movie details"
+                    },
+                    "401": {
+                        "description": "Unauthorized. The request must include a valid Bearer token in the Authorization header."
+                    },
+                    "404": {
+                        "description": "Movie not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/movies/{movie_id}/genres": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get genres associated with a specific movie",
+                "description": "Returns a list of genres associated with a specific movie.",
+                "operationId": "getMovieGenres",
+                "parameters": [
+                    {
+                        "name": "movie_id",
+                        "in": "path",
+                        "description": "ID of the movie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list with genres"
+                    },
+                    "401": {
+                        "description": "Unauthorized. The request must include a valid Bearer token in the Authorization header."
+                    },
+                    "404": {
+                        "description": "Movie not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/movies/{movie_id}/rating": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get ratings associated with a specific movie",
+                "description": "Returns a list of ratings associated with a specific movie.",
+                "operationId": "getMovieRating",
+                "parameters": [
+                    {
+                        "name": "movie_id",
+                        "in": "path",
+                        "description": "ID of the movie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list with ratings"
+                    },
+                    "401": {
+                        "description": "Unauthorized. The request must include a valid Bearer token in the Authorization header."
+                    },
+                    "404": {
+                        "description": "Movie not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/movies/{movie_id}/directors": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get directors associated with a specific movie",
+                "description": "Returns a list of directors associated with a specific movie.",
+                "operationId": "getMovieDirectors",
+                "parameters": [
+                    {
+                        "name": "movie_id",
+                        "in": "path",
+                        "description": "ID of the movie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list with directors"
+                    },
+                    "401": {
+                        "description": "Unauthorized. The request must include a valid Bearer token in the Authorization header."
+                    },
+                    "404": {
+                        "description": "Movie not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/movies/{movie_id}/actors": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get actors associated with a specific movie",
+                "description": "Returns a list of actors associated with a specific movie.",
+                "operationId": "getMovieActors",
+                "parameters": [
+                    {
+                        "name": "movie_id",
+                        "in": "path",
+                        "description": "ID of the movie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list with actors"
+                    },
+                    "401": {
+                        "description": "Unauthorized. The request must include a valid Bearer token in the Authorization header."
+                    },
+                    "404": {
+                        "description": "Movie not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "description": "Enter the token without the 'Bearer' prefix, it is added automatically. We recommend you first log in and get a token.",
+                "name": "oauth2",
+                "in": "header",
+                "flows": {
+                    "clientCredentials": {
+                        "tokenUrl": "oauth/token",
+                        "scopes": {}
+                    }
+                },
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Actors",
+            "description": "API Endpoints of Actors and their relationships"
+        },
+        {
+            "name": "Directors",
+            "description": "API Endpoints of Directors and their relationships"
+        },
+        {
+            "name": "Genres",
+            "description": "API Endpoints of Genres and their relationships"
+        },
+        {
+            "name": "Movies",
+            "description": "API Endpoints of Movies and their relationships"
+        }
+    ]
+}

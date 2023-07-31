@@ -6,10 +6,27 @@ use App\Models\Director;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Tag(
+ *    name="Directors",
+ *    description="API Endpoints of Directors and their relationships"
+ * )
+ */
 class DirectorController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/directors",
+     *     operationId="getDirectors",
+     *     tags={"Directors"},
+     *     summary="Get all directors",
+     *     description="Returns a list of directors.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="A list with directors"
+     *     )
+     * )
      */
     public function index(): JsonResponse
     {
@@ -28,7 +45,29 @@ class DirectorController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/directors/{director_id}",
+     *     operationId="getDirectorById",
+     *     tags={"Directors"},
+     *     summary="Get a specific director",
+     *     description="Returns a specific director by ID.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="director_id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the director",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="The director details"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Director not found"
+     *     )
+     * )
      */
     public function show(int $director_id): JsonResponse
     {
@@ -62,7 +101,29 @@ class DirectorController extends Controller
     }
     
     /**
-     * Display the movies of the specified director.
+     * @OA\Get(
+     *     path="/api/directors/{director_id}/movies",
+     *     operationId="getDirectorMovies",
+     *     tags={"Directors"},
+     *     summary="Get movies associated with a specific director",
+     *     description="Returns a list of movies associated with a specific director.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="director_id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the director",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="A list with movies"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Director not found"
+     *     )
+     * )
      */
     public function movies(int $director_id): JsonResponse
     {

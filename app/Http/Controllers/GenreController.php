@@ -6,10 +6,31 @@ use App\Models\Genre;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Tag(
+ *    name="Genres",
+ *    description="API Endpoints of Genres and their relationships"
+ * )
+ */
 class GenreController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/genres",
+     *     operationId="getGenres",
+     *     tags={"Genres"},
+     *     summary="Get all genres",
+     *     description="Returns a list of genres.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="A list with genres"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized. The request must include a valid Bearer token in the Authorization header."
+     *     )
+     * )
      */
     public function index(): JsonResponse
     {
@@ -28,7 +49,33 @@ class GenreController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/genres/{genre_id}",
+     *     operationId="getGenreById",
+     *     tags={"Genres"},
+     *     summary="Get a specific genre",
+     *     description="Returns a specific genre by ID.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="genre_id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the genre",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="The genre details"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized. The request must include a valid Bearer token in the Authorization header."
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Genre not found"
+     *     )
+     * )
      */
     public function show(int $genre_id): JsonResponse
     {
@@ -62,7 +109,33 @@ class GenreController extends Controller
     }
 
     /**
-     * Display the movies related to the specified resource.
+     * @OA\Get(
+     *     path="/api/genres/{genre_id}/movies",
+     *     operationId="getGenreMovies",
+     *     tags={"Genres"},
+     *     summary="Get movies associated with a specific genre",
+     *     description="Returns a list of movies associated with a specific genre.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="genre_id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the genre",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="A list with movies"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized. The request must include a valid Bearer token in the Authorization header."
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Genre not found"
+     *     )
+     * )
      */
     public function movies(int $genre_id): JsonResponse
     {

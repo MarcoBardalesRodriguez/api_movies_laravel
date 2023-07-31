@@ -7,11 +7,34 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+/**
+ * @OA\Tag(
+ *    name="Movies",
+ *  description="API Endpoints of Movies and their relationships"
+ * )
+ * 
+ */
 class MovieController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+/**
+ * Display a listing of the resource.
+ * @OA\Get(
+ *     path="/api/movies",
+ *     operationId="getMovies",
+ *     summary="Get all movies",
+ *     tags={"Movies"},
+ *     description="Returns a list of movies. This endpoint requires a valid Bearer token in the Authorization header.",
+ *     security={{"bearerAuth":{}}},
+ *     @OA\Response(
+ *         response=200,
+ *         description="A list with movies"
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized. The request must include a valid Bearer token in the Authorization header."
+ *     )
+ * )
+ */
     public function index(): JsonResponse
     {
         $movies = Movie::paginate(10);
@@ -29,8 +52,34 @@ class MovieController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
+ * @OA\Get(
+ *     path="/api/movies/{movie_id}",
+ *     operationId="getMovieById",
+ *     tags={"Movies"},
+ *     summary="Get a specific movie",
+ *     description="Returns a specific movie by ID.",
+ *     security={{"bearerAuth":{}}},
+ *     @OA\Parameter(
+ *         name="movie_id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the movie",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="The movie details"
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized. The request must include a valid Bearer token in the Authorization header."
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Movie not found"
+ *     )
+ * )
+ */
     public function show(int $movie_id): JsonResponse
     {
         if (!Movie::where("id", $movie_id)->exists()) {
@@ -63,9 +112,34 @@ class MovieController extends Controller
     }
 
     /**
-     * Display genres associated with a specific movie.
-     *
-     */
+ * @OA\Get(
+ *     path="/api/movies/{movie_id}/genres",
+ *     operationId="getMovieGenres",
+ *     tags={"Movies"},
+ *     summary="Get genres associated with a specific movie",
+ *     description="Returns a list of genres associated with a specific movie.",
+ *     security={{"bearerAuth":{}}},
+ *     @OA\Parameter(
+ *         name="movie_id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the movie",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="A list with genres"
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized. The request must include a valid Bearer token in the Authorization header."
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Movie not found"
+ *     )
+ * )
+ */
     public function genres(int $movie_id): JsonResponse
     {
         if (!Movie::where("id", $movie_id)->exists()) {
@@ -79,9 +153,34 @@ class MovieController extends Controller
     }
 
     /**
-     * Display ratings associated with a specific movie.
-     *
-     */
+ * @OA\Get(
+ *     path="/api/movies/{movie_id}/rating",
+ *     operationId="getMovieRating",
+ *     tags={"Movies"},
+ *     summary="Get ratings associated with a specific movie",
+ *     description="Returns a list of ratings associated with a specific movie.",
+ *     security={{"bearerAuth":{}}},
+ *     @OA\Parameter(
+ *         name="movie_id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the movie",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="A list with ratings"
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized. The request must include a valid Bearer token in the Authorization header."
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Movie not found"
+ *     )
+ * )
+ */
     public function rating(int $movie_id): JsonResponse
     {
         if (!Movie::where("id", $movie_id)->exists()) {
@@ -94,9 +193,34 @@ class MovieController extends Controller
     }
 
     /**
-     * Display directors associated with a specific movie.
-     *
-     */
+ * @OA\Get(
+ *     path="/api/movies/{movie_id}/directors",
+ *     operationId="getMovieDirectors",
+ *     tags={"Movies"},
+ *     summary="Get directors associated with a specific movie",
+ *     description="Returns a list of directors associated with a specific movie.",
+ *     security={{"bearerAuth":{}}},
+ *     @OA\Parameter(
+ *         name="movie_id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the movie",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="A list with directors"
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized. The request must include a valid Bearer token in the Authorization header."
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Movie not found"
+ *     )
+ * )
+ */
     public function directors(int $movie_id): JsonResponse
     {
         if(!Movie::where("id", $movie_id)->exists()) {
@@ -109,9 +233,34 @@ class MovieController extends Controller
     }
 
     /**
-     * Display actors associated with a specific movie.
-     *
-     */
+ * @OA\Get(
+ *     path="/api/movies/{movie_id}/actors",
+ *     operationId="getMovieActors",
+ *     tags={"Movies"},
+ *     summary="Get actors associated with a specific movie",
+ *     description="Returns a list of actors associated with a specific movie.",
+ *     security={{"bearerAuth":{}}},
+ *     @OA\Parameter(
+ *         name="movie_id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the movie",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="A list with actors"
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized. The request must include a valid Bearer token in the Authorization header."
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Movie not found"
+ *     )
+ * )
+ */
     public function actors(int $movie_id): JsonResponse
     {
         if(!Movie::where("id", $movie_id)->exists()) {
