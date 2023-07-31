@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{{ l5_swagger_asset($documentation, 'swagger-ui.css') }}">
     <link rel="icon" type="image/png" href="{{ l5_swagger_asset($documentation, 'favicon-32x32.png') }}" sizes="32x32"/>
     <link rel="icon" type="image/png" href="{{ l5_swagger_asset($documentation, 'favicon-16x16.png') }}" sizes="16x16"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
     html
     {
@@ -28,6 +29,13 @@
 </head>
 
 <body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid" style="justify-content: space-between">
+                <a class="navbar-brand" href="{{ route('/') }}">ApiMovies</a>
+            </div>
+        </nav>
+    </header>
 <div id="swagger-ui"></div>
 
 <script src="{{ l5_swagger_asset($documentation, 'swagger-ui-bundle.js') }}"></script>
