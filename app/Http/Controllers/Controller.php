@@ -10,11 +10,15 @@ use Illuminate\Routing\Controller as BaseController;
  * @OA\Info(
  *     version="1.0.0",
  *    title="Movies API",
- *   description="Movies API",
+ *   description="This is a consumption-only API — only the HTTP GET method is available on resources.",
  * )
  * @OA\Server(
- *    description="Movies API",
+ *    description="Movies API - local environment",
  *  url="http://localhost:8000"
+ * )
+ * @OA\Server(
+ *   description="Movies API - production environment",
+ *   url="https://movies-api.apps.marcobardalesrodriguez.site"
  * )
  * @OA\SecurityScheme(
  *     @OA\Flow(
