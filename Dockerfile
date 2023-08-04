@@ -1,16 +1,19 @@
 FROM php:8.2
+RUN apk add --no-cache zip
+RUN apk add --no-cache curl
+RUN apk add --no-cache git
 
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/local/bin --filename=composer
 
-# COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 RUN docker-php-ext-install pdo pdo_mysql
 
 WORKDIR /app
 COPY . /app
 
-RUN composer install
+RUN composer install --ignore-platform-reqs --no-interaction --no-plugins --no-scripts --prefer-dist --no-dev --no-suggest --no-progress --no-autoloader
 
 COPY .env.example .env
 
