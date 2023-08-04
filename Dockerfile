@@ -1,8 +1,14 @@
 # Utilizamos la imagen oficial de Laravel con soporte para PHP y MySQL
-FROM laravel:10.0
+FROM laravel:8.0
+
+# Instalamos la biblioteca libssh2
+RUN apt-get update && apt-get install -y libssh2-1-dev
 
 # Instalamos las extensiones adicionales que pueda requerir Octane
 RUN docker-php-ext-install pcntl
+
+# Instalamos la extensión ssh2 para Octane
+RUN pecl install ssh2 && docker-php-ext-enable ssh2
 
 # Instalamos la extensión swoole para Octane
 RUN pecl install swoole && docker-php-ext-enable swoole
@@ -17,7 +23,7 @@ COPY . /app
 RUN composer install --no-dev --optimize-autoloader
 
 # Copiamos el archivo .env
-COPY .env .env
+COPY .env.example .env
 
 # Creamos el directorio para los logs
 RUN mkdir -p /app/storage/logs
