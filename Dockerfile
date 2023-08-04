@@ -1,4 +1,5 @@
-FROM elrincondeisma/octane:latest
+FROM php:8.2-apache
+RUN docker-php-ext-install pdo pdo_mysql
 
 RUN curl -sS https://getcomposer.org/installer | php -- \
      --install-dir=/usr/local/bin --filename=composer
@@ -6,8 +7,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY --from=spiralscout/roadrunner:2.4.2 /usr/bin/rr /usr/bin/rr
 
-WORKDIR /app
 COPY . .
+WORKDIR .
 RUN rm -rf /app/vendor
 RUN rm -rf /app/composer.lock
 
