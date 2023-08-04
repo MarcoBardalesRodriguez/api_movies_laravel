@@ -1,35 +1,40 @@
-FROM php:8.2-fpm-alpine
-RUN apk --no-cache upgrade && \
-    apk --no-cache add bash git sudo openssh  libxml2-dev oniguruma-dev autoconf gcc g++ make npm freetype-dev libjpeg-turbo-dev libpng-dev libzip-dev 
+# Utilizamos la imagen oficial de Laravel con soporte para PHP y MySQL
+FROM laravel:10.0
 
-# PHP: Install php extensions
-RUN pecl channel-update pecl.php.net
-RUN pecl install pcov ssh2 swoole
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
-RUN docker-php-ext-install mbstring xml iconv pcntl gd zip sockets pdo  pdo_mysql bcmath soap
-RUN docker-php-ext-enable mbstring xml gd iconv zip pcov pcntl sockets bcmath pdo  pdo_mysql soap swoole
+# Instalamos las extensiones adicionales que pueda requerir Octane
+RUN docker-php-ext-install pcntl
 
-RUN docker-php-ext-install pdo pdo_mysql sockets
-RUN curl -sS https://getcomposer.org/installer | php -- \
-     --install-dir=/usr/local/bin --filename=composer
+# Instalamos la extensión swoole para Octane
+RUN pecl install swoole && docker-php-ext-enable swoole
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
+# Establecemos el directorio de trabajo
 WORKDIR /app
+
+# Copiamos los archivos de la aplicación
 COPY . /app
 
-RUN composer install 
+# Instalamos las dependencias de Composer sin dev y optimizamos el autoloader
+RUN composer install --no-dev --optimize-autoloader
 
-COPY .env.example .env
+# Copiamos el archivo .env
+COPY .env .env
 
+# Creamos el directorio para los logs
 RUN mkdir -p /app/storage/logs
 
+# Limpiamos caches y configuraciones
 RUN php artisan cache:clear
 RUN php artisan view:clear
 RUN php artisan config:clear
 
+# Generamos una nueva clave si no existe
 RUN php artisan key:generate
-RUN php artisan migrate
-RUN php artisan serve --host=0.0.0.0 --port=8000
 
+# Ejecutamos las migraciones de la base de datos
+RUN php artisan migrate
+
+# Exponemos el puerto en el que escucha nuestra aplicación
 EXPOSE 8000
+
+# Ejecutamos Octane para servir la aplicación
+CMD ["php", "artisan", "octane:start", "--server=swoole", "--host=0.0.0.0", "--port=8000"]
