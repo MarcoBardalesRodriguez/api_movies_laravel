@@ -1,5 +1,5 @@
 # Utilizamos la imagen oficial de Laravel con soporte para PHP y MySQL
-FROM laravel:latest
+FROM bitnami/laravel:latest
 
 # Instalamos la biblioteca libssh2
 RUN apt-get update && apt-get install -y libssh2-1-dev
