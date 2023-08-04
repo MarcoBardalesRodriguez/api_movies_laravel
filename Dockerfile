@@ -4,15 +4,6 @@ FROM bitnami/laravel:latest
 # Instalamos la biblioteca libssh2
 RUN apt-get update && apt-get install -y libssh2-1-dev
 
-# Instalamos las extensiones adicionales que pueda requerir Octane
-# RUN docker-php-ext-install pcntl
-
-# Instalamos la extensión ssh2 para Octane
-RUN pecl install ssh2 && docker-php-ext-enable ssh2
-
-# Instalamos la extensión swoole para Octane
-RUN pecl install swoole && docker-php-ext-enable swoole
-
 # Establecemos el directorio de trabajo
 WORKDIR /app
 
@@ -43,4 +34,4 @@ RUN php artisan migrate
 EXPOSE 8000
 
 # Ejecutamos Octane para servir la aplicación
-CMD ["php", "artisan", "octane:start", "--server=swoole", "--host=0.0.0.0", "--port=8000"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
