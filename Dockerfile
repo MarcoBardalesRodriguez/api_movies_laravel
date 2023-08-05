@@ -19,10 +19,10 @@ COPY .env.example .env
 # Creamos el directorio para los logs
 RUN mkdir -p /app/storage/logs
 
-# Limpiamos caches y configuraciones
-RUN php artisan cache:clear
-RUN php artisan view:clear
-RUN php artisan config:clear
+# # Limpiamos caches y configuraciones
+# RUN php artisan cache:clear
+# RUN php artisan view:clear
+# RUN php artisan config:clear
 
 # Generamos una nueva clave si no existe
 RUN php artisan key:generate
